@@ -210,7 +210,8 @@ h2{margin:0 0 10px; font-size:18px}
   background: rgba(255,255,255,.03);
   aspect-ratio: 16 / 10;
 }
-.photo img{width:100%; height:100%; object-fit:cover; display:block}
+.photo img{width:100%; height:100%; object-fit:contain; display:block; background: rgba(255,255,255,.03);}
+
 
 /* Timeline */
 .timeline{display:grid; gap:12px; margin-top:10px}
