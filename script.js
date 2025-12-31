@@ -24,7 +24,7 @@ const CONFIG = {
   ],
 
   // Put your 3 images in assets with these exact names:
-  photos: ["assets/1.jpg", "assets/2.jpg", "assets/3.jpg"],
+  photos: ["assets/3.jpg", "assets/2.jpg", "assets/1.jpg"],
 
   // If your assets fail for any reason, these show instead:
   fallbackPhotos: [
