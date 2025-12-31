@@ -4,21 +4,19 @@ const CONFIG = {
   herNick: "Vaishu",
   yourName: "Rohit",
 
-  // Time zones
   myTZ: "Europe/London",
   herTZ: "Asia/Kolkata",
 
-  // Relationship start date (YYYY-MM-DD)
+  // Change this if your official date is different (YYYY-MM-DD)
   startDate: "2024-01-01",
 
-  // Next meeting (choose May or June)
-  // Example May: 2026-05-20T10:00:00
+  // Choose your meeting date in May or June 2026
+  // Example May: "2026-05-20T10:00:00"
   nextMeet: "2026-06-01T10:00:00",
 
   // New Year target (Vaishu time)
   newYearTarget: "2026-01-01T00:00:00",
 
-  // Reasons
   reasons: [
     "Vaishu, you are my peace.",
     "You make distance feel small.",
@@ -32,7 +30,7 @@ const CONFIG = {
     "Because the way I love you, I can’t love anyone else."
   ],
 
-  // A few nice photos to rotate (optional)
+  // Optional photos if assets/vaishu.jpg fails to load
   photoPool: [
     "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1400&q=60",
     "https://images.unsplash.com/photo-1520975958225-68d4aefc6586?auto=format&fit=crop&w=1400&q=60",
@@ -43,40 +41,28 @@ const CONFIG = {
 
 const $ = (id) => document.getElementById(id);
 
-// ---------- Helpers ----------
+// Helpers
 function fmtTime(tz){
-  return new Intl.DateTimeFormat([], {
-    hour:"2-digit", minute:"2-digit", hour12:true, timeZone: tz
-  }).format(new Date());
+  return new Intl.DateTimeFormat([], { hour:"2-digit", minute:"2-digit", hour12:true, timeZone: tz }).format(new Date());
 }
-
 function prettyDate(d){
   return new Intl.DateTimeFormat("en-GB", { day:"2-digit", month:"short", year:"numeric" }).format(d);
 }
-
-// "Now in timezone" approximation by reconstructing formatted parts
 function nowInTZ(tz){
   const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: tz,
-    year:"numeric", month:"2-digit", day:"2-digit",
-    hour:"2-digit", minute:"2-digit", second:"2-digit",
-    hour12:false
+    timeZone: tz, year:"numeric", month:"2-digit", day:"2-digit",
+    hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
   }).formatToParts(new Date());
-
-  const obj = {};
-  for(const p of parts) obj[p.type] = p.value;
-
-  // Create a Date from the formatted string (local parse). Good for countdown display.
-  return new Date(`${obj.year}-${obj.month}-${obj.day}T${obj.hour}:${obj.minute}:${obj.second}`);
+  const o = {};
+  for(const p of parts) o[p.type] = p.value;
+  return new Date(`${o.year}-${o.month}-${o.day}T${o.hour}:${o.minute}:${o.second}`);
 }
+function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
 
-function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+// Names
+$("herNameBig").textContent = CONFIG.herName;
 
-// ---------- Set name text ----------
-const herBig = $("herNameBig");
-if(herBig) herBig.textContent = CONFIG.herName;
-
-// ---------- Times ----------
+// Times
 function tickTimes(){
   $("myTime").textContent = fmtTime(CONFIG.myTZ);
   $("herTime").textContent = fmtTime(CONFIG.herTZ);
@@ -84,7 +70,7 @@ function tickTimes(){
 tickTimes();
 setInterval(tickTimes, 1000);
 
-// ---------- Days together ----------
+// Days together
 function daysTogether(){
   const start = new Date(CONFIG.startDate + "T00:00:00");
   const now = new Date();
@@ -97,12 +83,11 @@ function daysTogether(){
 daysTogether();
 setInterval(daysTogether, 60_000);
 
-// ---------- Next meet countdown ----------
+// Meet countdown
 function meetCountdown(){
   const t = new Date(CONFIG.nextMeet);
   const now = new Date();
   const diff = t - now;
-
   if(diff <= 0){
     $("countdownMeet").textContent = "I’m with you now 💖";
     return;
@@ -115,12 +100,11 @@ function meetCountdown(){
 meetCountdown();
 setInterval(meetCountdown, 1000);
 
-// ---------- New Year countdown (Vaishu time) ----------
+// New Year countdown (Vaishu time)
 function nyCountdown(){
   const nowHer = nowInTZ(CONFIG.herTZ);
   const target = new Date(CONFIG.newYearTarget);
   const diff = target - nowHer;
-
   if(diff <= 0){
     $("nyCountdown").textContent = "🎉 Happy New Year, Vaishu! 🎉";
     sparkleBurst(30);
@@ -135,7 +119,7 @@ function nyCountdown(){
 nyCountdown();
 setInterval(nyCountdown, 1000);
 
-// ---------- Reasons ----------
+// Reasons
 function newReason(){
   const r = CONFIG.reasons[Math.floor(Math.random() * CONFIG.reasons.length)];
   $("reasonText").textContent = r;
@@ -150,15 +134,11 @@ $("newReason").addEventListener("click", () => {
 
 $("copyReason").addEventListener("click", async () => {
   const text = $("reasonText").textContent.trim();
-  try{
-    await navigator.clipboard.writeText(text);
-    toast("Copied 💖");
-  }catch{
-    toast("Copy not allowed here 😅");
-  }
+  try{ await navigator.clipboard.writeText(text); toast("Copied 💖"); }
+  catch{ toast("Copy not allowed here 😅"); }
 });
 
-// ---------- Open when ----------
+// Open when
 document.querySelectorAll(".chipbtn").forEach(btn=>{
   btn.addEventListener("click", ()=>{
     $("openWhenNote").textContent = btn.dataset.msg;
@@ -166,7 +146,7 @@ document.querySelectorAll(".chipbtn").forEach(btn=>{
   });
 });
 
-// ---------- Quiz ----------
+// Quiz
 let score = 0, answered = 0;
 document.querySelectorAll(".opt").forEach(b=>{
   b.addEventListener("click", ()=>{
@@ -174,8 +154,7 @@ document.querySelectorAll(".opt").forEach(b=>{
     b.classList.add("locked");
     answered++;
 
-    const correct = b.dataset.correct === "1";
-    if(correct) score++;
+    if(b.dataset.correct === "1") score++;
 
     if(answered === 3){
       const msg =
@@ -188,7 +167,7 @@ document.querySelectorAll(".opt").forEach(b=>{
   });
 });
 
-// ---------- Photo rotate ----------
+// Photo rotate (only affects fallback pool)
 let pIndex = 0;
 $("swapPhoto").addEventListener("click", ()=>{
   pIndex = (pIndex + 1) % CONFIG.photoPool.length;
@@ -198,13 +177,13 @@ $("swapPhoto").addEventListener("click", ()=>{
 
 $("sparkle").addEventListener("click", ()=> sparkleBurst(20));
 
-// ---------- Theme ----------
+// Theme
 $("toggleTheme").addEventListener("click", ()=>{
   document.body.classList.toggle("light");
   $("toggleTheme").textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
 });
 
-// ---------- Letter modal ----------
+// Modal
 const modal = $("letterModal");
 $("openLetter").addEventListener("click", ()=> openModal());
 $("closeLetter").addEventListener("click", ()=> closeModal());
@@ -222,26 +201,17 @@ function closeModal(){
 
 $("copyLetter").addEventListener("click", async ()=>{
   const text = $("letterBody").innerText.trim();
-  try{
-    await navigator.clipboard.writeText(text);
-    toast("Letter copied 💌");
-  }catch{
-    toast("Copy not allowed here 😅");
-  }
+  try{ await navigator.clipboard.writeText(text); toast("Letter copied 💌"); }
+  catch{ toast("Copy not allowed here 😅"); }
 });
+$("moreMagic").addEventListener("click", ()=> sparkleBurst(26));
 
-$("moreMagic").addEventListener("click", ()=>{
-  sparkleBurst(26);
-});
-
-// ---------- Celebrate button ----------
+// Celebrate
 $("celebrate").addEventListener("click", ()=>{
-  sparkleBurst(35);
-  sparkleBurst(35);
-  sparkleBurst(35);
+  sparkleBurst(35); sparkleBurst(35); sparkleBurst(35);
 });
 
-// ---------- Sparkles ----------
+// Sparkles
 function sparkleBurst(n=18){
   for(let i=0;i<n;i++){
     const s = document.createElement("div");
@@ -255,7 +225,7 @@ function sparkleBurst(n=18){
   }
 }
 
-// ---------- Toast ----------
+// Toast
 let toastEl;
 function toast(msg){
   if(!toastEl){
@@ -267,7 +237,7 @@ function toast(msg){
     toastEl.style.padding="10px 12px";
     toastEl.style.border="1px solid rgba(255,255,255,.14)";
     toastEl.style.borderRadius="14px";
-    toastEl.style.background="rgba(0,0,0,.50)";
+    toastEl.style.background="rgba(0,0,0,.55)";
     toastEl.style.color="white";
     toastEl.style.zIndex="60";
     toastEl.style.fontWeight="800";
@@ -280,7 +250,7 @@ function toast(msg){
   toastEl._t = setTimeout(()=> toastEl.style.opacity="0", 1100);
 }
 
-// ---------- Canvas fireworks-ish background ----------
+// Canvas fireworks background
 const canvas = $("bg");
 const ctx = canvas.getContext("2d");
 let w,h;
@@ -325,7 +295,6 @@ let fwTimer = 0;
 function draw(){
   ctx.clearRect(0,0,w,h);
 
-  // Stars
   for(const s of stars){
     s.y += s.v;
     if(s.y > h){ s.y = -5; s.x = Math.random()*w; }
@@ -336,7 +305,6 @@ function draw(){
     ctx.fill();
   }
 
-  // Fireworks particles
   ctx.globalAlpha = 1;
   for(let i=particles.length-1;i>=0;i--){
     const p = particles[i];
@@ -344,7 +312,7 @@ function draw(){
     p.y += p.vy;
     p.vx *= 0.985;
     p.vy *= 0.985;
-    p.vy += 0.01; // slight gravity
+    p.vy += 0.01;
     p.life -= 1;
 
     const alpha = clamp(p.life/120, 0, 1);
@@ -357,7 +325,6 @@ function draw(){
     if(p.life <= 0) particles.splice(i,1);
   }
 
-  // periodic fireworks
   fwTimer++;
   if(fwTimer % 120 === 0) spawnFirework();
 
