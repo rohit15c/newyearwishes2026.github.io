@@ -1,4 +1,3 @@
-// ========= EDIT THESE ONLY =========
 const CONFIG = {
   herName: "Vaishnavi",
   herNick: "Vaishu",
@@ -7,14 +6,8 @@ const CONFIG = {
   myTZ: "Europe/London",
   herTZ: "Asia/Kolkata",
 
-  // Change this if your official date is different (YYYY-MM-DD)
   startDate: "2024-01-01",
-
-  // Choose your meeting date in May or June 2026
-  // Example May: "2026-05-20T10:00:00"
   nextMeet: "2026-06-01T10:00:00",
-
-  // New Year target (Vaishu time)
   newYearTarget: "2026-01-01T00:00:00",
 
   reasons: [
@@ -30,18 +23,20 @@ const CONFIG = {
     "Because the way I love you, I can’t love anyone else."
   ],
 
-  // Optional photos if assets/vaishu.jpg fails to load
-  photoPool: [
+  // Put your 3 images in assets with these exact names:
+  photos: ["assets/photo1.jpg", "assets/photo2.jpg", "assets/photo3.jpg"],
+
+  // If your assets fail for any reason, these show instead:
+  fallbackPhotos: [
     "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1400&q=60",
     "https://images.unsplash.com/photo-1520975958225-68d4aefc6586?auto=format&fit=crop&w=1400&q=60",
     "https://images.unsplash.com/photo-1529335764857-3f1164d1cb24?auto=format&fit=crop&w=1400&q=60"
   ]
 };
-// ==================================
 
 const $ = (id) => document.getElementById(id);
+function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
 
-// Helpers
 function fmtTime(tz){
   return new Intl.DateTimeFormat([], { hour:"2-digit", minute:"2-digit", hour12:true, timeZone: tz }).format(new Date());
 }
@@ -57,7 +52,6 @@ function nowInTZ(tz){
   for(const p of parts) o[p.type] = p.value;
   return new Date(`${o.year}-${o.month}-${o.day}T${o.hour}:${o.minute}:${o.second}`);
 }
-function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
 
 // Names
 $("herNameBig").textContent = CONFIG.herName;
@@ -127,10 +121,7 @@ function newReason(){
 }
 newReason();
 
-$("newReason").addEventListener("click", () => {
-  newReason();
-  sparkleBurst(18);
-});
+$("newReason").addEventListener("click", () => { newReason(); sparkleBurst(18); });
 
 $("copyReason").addEventListener("click", async () => {
   const text = $("reasonText").textContent.trim();
@@ -167,15 +158,55 @@ document.querySelectorAll(".opt").forEach(b=>{
   });
 });
 
-// Photo rotate (only affects fallback pool)
-let pIndex = 0;
-$("swapPhoto").addEventListener("click", ()=>{
-  pIndex = (pIndex + 1) % CONFIG.photoPool.length;
-  $("mainPhoto").src = CONFIG.photoPool[pIndex];
-  sparkleBurst(12);
-});
+// --- PHOTO SLIDER (one by one) ---
+let photoIndex = 0;
+
+const photoEl = $("mainPhoto");
+const indexEl = $("photoIndex");
+const frameEl = $("photoFrame");
+
+function setPhoto(i){
+  const total = CONFIG.photos.length;
+  photoIndex = (i + total) % total;
+
+  const url = CONFIG.photos[photoIndex];
+  photoEl.src = url;
+
+  // If that asset doesn't exist, fall back gracefully
+  photoEl.onerror = () => {
+    photoEl.onerror = null;
+    const fb = CONFIG.fallbackPhotos[photoIndex] || CONFIG.fallbackPhotos[0];
+    photoEl.src = fb;
+  };
+
+  if(indexEl) indexEl.textContent = `${photoIndex + 1} / ${total}`;
+}
+
+function nextPhoto(){ setPhoto(photoIndex + 1); sparkleBurst(10); }
+function prevPhoto(){ setPhoto(photoIndex - 1); sparkleBurst(10); }
+
+$("nextPhoto").addEventListener("click", nextPhoto);
+$("prevPhoto").addEventListener("click", prevPhoto);
+
+// "Change vibe" button = next photo (as you wanted)
+$("swapPhoto").addEventListener("click", nextPhoto);
 
 $("sparkle").addEventListener("click", ()=> sparkleBurst(20));
+
+// Swipe support
+let touchX = null;
+frameEl.addEventListener("touchstart", (e)=> { touchX = e.touches[0].clientX; }, {passive:true});
+frameEl.addEventListener("touchend", (e)=> {
+  if(touchX === null) return;
+  const endX = e.changedTouches[0].clientX;
+  const dx = endX - touchX;
+  touchX = null;
+  if(Math.abs(dx) < 40) return;
+  dx < 0 ? nextPhoto() : prevPhoto();
+}, {passive:true});
+
+// Initialize first photo
+setPhoto(0);
 
 // Theme
 $("toggleTheme").addEventListener("click", ()=>{
