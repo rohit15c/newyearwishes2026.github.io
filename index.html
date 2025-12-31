@@ -86,26 +86,29 @@
           </div>
         </div>
 
-        <div class="tip">Tip: Add your photo in <b>assets/vaishu.jpg</b> 💖</div>
+        <div class="tip">Tip: Put 3 photos in <b>assets/photo1.jpg</b>, <b>photo2.jpg</b>, <b>photo3.jpg</b></div>
       </div>
     </section>
 
     <section class="grid">
 
+      <!-- PHOTO SLIDER (ONE BY ONE) -->
       <section class="card">
         <h2>Our little corner 📸</h2>
-        <p class="muted">.</p>
+        <p class="muted">Swipe left/right on mobile or use buttons.</p>
 
-        <<div class="gallery">
-  <img src="assets/1.jpg" alt="Vaishu 1">
-  <img src="assets/2.jpg" alt="Vaishu 2">
-  <img src="assets/3.jpg" alt="Vaishu 3">
-
+        <div class="photoFrame" id="photoFrame">
+          <img id="mainPhoto"
+               src="assets/photo1.jpg"
+               alt="Vaishu photo"
+               onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1400&q=60'">
+          <div class="photoIndex" id="photoIndex">1 / 3</div>
         </div>
 
-
         <div class="row">
+          <button class="btn ghost smallbtn" id="prevPhoto">⬅ Prev</button>
           <button class="btn ghost smallbtn" id="swapPhoto">Change vibe ✨</button>
+          <button class="btn ghost smallbtn" id="nextPhoto">Next ➡</button>
           <button class="btn ghost smallbtn" id="sparkle">Sparkles ✨</button>
         </div>
       </section>
@@ -213,6 +216,7 @@
     </footer>
   </main>
 
+  <!-- LETTER MODAL -->
   <div class="modal" id="letterModal" aria-hidden="true">
     <div class="modalCard">
       <div class="modalHead">
