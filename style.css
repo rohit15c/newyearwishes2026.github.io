@@ -327,3 +327,20 @@ h2{margin:0 0 10px; font-size:18px}
   .grid{grid-template-columns:1fr}
   h1{font-size:30px}
 }
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:10px;
+}
+.gallery img{
+  width:100%;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;       /* shows full vertical photos */
+  border-radius:18px;
+  border:1px solid var(--border);
+  background: rgba(0,0,0,.20);
+}
+@media (max-width: 900px){
+  .gallery{ grid-template-columns: 1fr; } /* stacks on phone */
+}
+
