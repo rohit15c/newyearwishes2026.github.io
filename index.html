@@ -9,10 +9,8 @@
 </head>
 
 <body>
-  <!-- Background FX -->
   <canvas id="bg"></canvas>
 
-  <!-- Top Bar -->
   <header class="topbar">
     <div class="logo">
       <span class="mark">🎆</span>
@@ -37,18 +35,17 @@
 
   <main class="wrap">
 
-    <!-- HERO -->
     <section class="hero card">
       <div class="hero-left">
         <div class="badge">✨ 2026 ✨</div>
+
         <h1>
           Happy New Year, <span class="accent" id="herNameBig">Vaishnavi</span>
           <span class="tiny">(Vaishu)</span> 🎇
         </h1>
 
         <p class="lead">
-          Because the way I love you… <b>I can’t love anyone else.</b>
-          <br />
+          Because the way I love you… <b>I can’t love anyone else.</b><br />
           New year, new memories — but my favourite part stays the same: <b>you.</b>
         </p>
 
@@ -89,32 +86,30 @@
           </div>
         </div>
 
-        <div class="tip">Tip: Replace the photo + add your memories below 💖</div>
+        <div class="tip">Tip: Add your photo in <b>assets/vaishu.jpg</b> 💖</div>
       </div>
     </section>
 
-    <!-- CONTENT GRID -->
     <section class="grid">
 
-      <!-- PHOTO CARD -->
       <section class="card">
         <h2>Our little corner 📸</h2>
-        <p class="muted">Replace this with your photo (or a collage later).</p>
+        <p class="muted">Your photo is shown fully (no crop) — perfect for vertical pics.</p>
 
-        <!-- Replace src with your own: assets/vaishu.jpg -->
         <div class="photo">
-          <img id="assets/vaishu.jpg"
+          <!-- Put your image here: assets/vaishu.jpg -->
+          <img id="mainPhoto"
                src="assets/vaishu.jpg"
+               onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1400&q=60'"
                alt="Us" />
         </div>
 
         <div class="row">
-          <button class="btn ghost smallbtn" id="swapPhoto">Change photo vibe ✨</button>
+          <button class="btn ghost smallbtn" id="swapPhoto">Change vibe ✨</button>
           <button class="btn ghost smallbtn" id="sparkle">Sparkles ✨</button>
         </div>
       </section>
 
-      <!-- REASONS -->
       <section class="card">
         <h2>One reason I love you 💖</h2>
         <p class="big" id="reasonText">Tap the button, Vaishu 😊</p>
@@ -122,10 +117,9 @@
           <button class="btn" id="newReason">One more 🥺</button>
           <button class="btn ghost" id="copyReason">Copy</button>
         </div>
-        <p class="muted tinyline">You can keep clicking. I added many reasons 😄</p>
+        <p class="muted tinyline">Keep clicking — I added many reasons 😄</p>
       </section>
 
-      <!-- TIMELINE -->
       <section class="card">
         <h2>Our story (mini timeline) 🗓️</h2>
         <div class="timeline">
@@ -149,7 +143,7 @@
             <div class="dot"></div>
             <div class="tlc">
               <div class="tlt">2026 plan</div>
-              <div class="tld">Meet in <b>May/June</b> + make real memories ✨</div>
+              <div class="tld">Meet in <b>May/June</b> + real memories ✨</div>
             </div>
           </div>
 
@@ -163,7 +157,6 @@
         </div>
       </section>
 
-      <!-- OPEN WHEN -->
       <section class="card">
         <h2>Open when… 📩</h2>
         <p class="muted">Tap a button. It’ll show a message.</p>
@@ -176,7 +169,6 @@
         <div class="note" id="openWhenNote"></div>
       </section>
 
-      <!-- QUIZ -->
       <section class="card">
         <h2>Vaishu Quiz 😄</h2>
         <p class="muted">Just for fun. No pressure 😅</p>
@@ -221,7 +213,6 @@
     </footer>
   </main>
 
-  <!-- LETTER MODAL -->
   <div class="modal" id="letterModal" aria-hidden="true">
     <div class="modalCard">
       <div class="modalHead">
