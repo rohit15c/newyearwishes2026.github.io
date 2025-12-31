@@ -6,7 +6,7 @@ const CONFIG = {
   myTZ: "Europe/London",
   herTZ: "Asia/Kolkata",
 
-  startDate: "2024-01-01",
+  startDate: "2025-09-26",
   nextMeet: "2026-06-01T10:00:00",
   newYearTarget: "2026-01-01T00:00:00",
 
