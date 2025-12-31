@@ -203,16 +203,22 @@ h2{margin:0 0 10px; font-size:18px}
 .smallbtn{padding:10px 12px; border-radius:14px; font-weight:900}
 .tinyline{margin-top:10px; font-size:12px}
 
-..photo{
-  ...
-  aspect-ratio: 4 / 5;   /* portrait frame */
-  max-height: 520px;
+/* PHOTO: portrait-friendly + FULL IMAGE (no crop) */
+.photo{
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background: rgba(0,0,0,.20);
+  aspect-ratio: 4 / 5;
+  max-height: 560px;
 }
-.photo img{object-fit:cover;}
-
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit: contain; /* shows full vertical image */
+  display:block;
+  background: rgba(0,0,0,.20);
 }
-.photo img{width:100%; height:100%; object-fit:contain; display:block; background: rgba(255,255,255,.03);}
-
 
 /* Timeline */
 .timeline{display:grid; gap:12px; margin-top:10px}
@@ -269,25 +275,39 @@ h2{margin:0 0 10px; font-size:18px}
 .footer{margin-top:16px; text-align:center}
 .footerline{font-weight:1000; margin-bottom:6px}
 
-/* Modal */
-.modal{position:fixed; inset:0; z-index:30; display:none; place-items:center; background: rgba(0,0,0,.60)}
+/* Modal (FIXED: NOT transparent) */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:30;
+  display:none;
+  place-items:center;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(8px);
+}
 .modal.show{display:grid}
+
 .modalCard{
   width:min(720px, 92vw);
   border-radius:22px;
   border:1px solid var(--border);
-  background: linear-gradient(180deg, var(--card), var(--card2));
-  box-shadow: var(--shadow);
+  background:#0b0f26; /* solid */
+  box-shadow: 0 30px 80px rgba(0,0,0,.75);
 }
 .modalHead{
   display:flex; justify-content:space-between; align-items:center;
   padding:14px 14px 0;
 }
 .modalTitle{font-weight:1000}
-.modalBody{padding:14px; line-height:1.75; color:var(--muted)}
-.modalBody b{color:var(--text)}
+.modalBody{
+  padding:16px;
+  line-height:1.75;
+  color:#dfe6ff;
+}
+.modalBody b{color:white}
+.modalBody p{margin-top:0}
 .modalFoot{display:flex; gap:10px; flex-wrap:wrap; padding:0 14px 14px}
-.sign{color:var(--text)}
+.sign{color:white}
 
 /* Sparkles */
 .sparkle{
