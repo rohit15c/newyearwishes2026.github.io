@@ -3,173 +3,260 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy New Year, My Love 🎆</title>
+  <title>Happy New Year, Vaishu 🎆</title>
+  <meta name="theme-color" content="#060816" />
   <link rel="stylesheet" href="style.css" />
-  <meta name="theme-color" content="#0b0f1a" />
 </head>
-<body>
-  <canvas id="stars"></canvas>
 
+<body>
+  <!-- Background FX -->
+  <canvas id="bg"></canvas>
+
+  <!-- Top Bar -->
   <header class="topbar">
-    <div class="brand">💗 For <span id="herName">HerName</span></div>
-    <div class="chips">
-      <span class="chip">Your time: <b id="myTime">--:--</b></span>
-      <span class="chip">Her time: <b id="herTime">--:--</b></span>
-      <button class="btn ghost" id="toggleMode" aria-label="Toggle theme">🌙</button>
+    <div class="logo">
+      <span class="mark">🎆</span>
+      <div class="brand">
+        <div class="t1">Happy New Year</div>
+        <div class="t2">Vaishu 💖</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <div class="pill" title="Your time">
+        <span>🇬🇧</span>
+        <b id="myTime">--:--</b>
+      </div>
+      <div class="pill" title="Vaishu's time">
+        <span>🇮🇳</span>
+        <b id="herTime">--:--</b>
+      </div>
+      <button class="iconbtn" id="toggleTheme" aria-label="Toggle theme">🌙</button>
     </div>
   </header>
 
   <main class="wrap">
+
+    <!-- HERO -->
     <section class="hero card">
       <div class="hero-left">
-      <h1>Happy New Year, <span class="accent" id="herName2">HerName</span> 🎆</h1>
-<p class="subtitle">
-  New year, same us — stronger, closer, and more in love.
-  I made this just for you 💖
-</p>
+        <div class="badge">✨ 2026 ✨</div>
+        <h1>
+          Happy New Year, <span class="accent" id="herNameBig">Vaishnavi</span>
+          <span class="tiny">(Vaishu)</span> 🎇
+        </h1>
 
+        <p class="lead">
+          Because the way I love you… <b>I can’t love anyone else.</b>
+          <br />
+          New year, new memories — but my favourite part stays the same: <b>you.</b>
+        </p>
 
         <div class="cta">
-          <button class="btn" id="openLetter">Open my letter 💌</button>
-          <button class="btn ghost" id="confetti">Tap for magic 🎉</button>
+          <button class="btn" id="openLetter">Open my New Year letter 💌</button>
+          <button class="btn ghost" id="celebrate">Celebrate 🎉</button>
         </div>
 
-        <div class="mini">
-          <div class="mini-item">
-            <div class="mini-label">Days since we started</div>
-            <div class="mini-value" id="daysTogether">—</div>
+        <div class="stats">
+          <div class="stat">
+            <div class="label">Days since we started</div>
+            <div class="value" id="daysTogether">—</div>
           </div>
-          <div class="mini-item">
-            <div class="mini-label">Next time I see you</div>
-            <div class="mini-value" id="countdown">—</div>
+          <div class="stat">
+            <div class="label">Next time I see you</div>
+            <div class="value" id="countdownMeet">—</div>
           </div>
         </div>
       </div>
 
       <div class="hero-right">
-        <div class="photo-frame">
-          <!-- Put your favorite photo URL below OR use a local image (see notes) -->
-          <img id="mainPhoto" alt="Us" src="https://images.unsplash.com/photo-1520975958225-68d4aefc6586?auto=format&fit=crop&w=900&q=60">
+        <div class="poster">
+          <div class="poster-top">
+            <div class="poster-title">Midnight Countdown (Vaishu time)</div>
+            <div class="poster-sub" id="nyLabel">to 1 Jan 2026, 12:00 AM</div>
+          </div>
+
+          <div class="count" id="nyCountdown">--</div>
+
+          <div class="poster-bottom">
+            <div class="promiseTitle">My 2026 promises to you 💍</div>
+            <ul class="promise">
+              <li>More time for you — calls, texts, and attention.</li>
+              <li>Better communication, even when life is stressful.</li>
+              <li>Planning our meet properly for <b>May/June</b>.</li>
+              <li>Making you feel loved every single day.</li>
+            </ul>
+          </div>
         </div>
-        <div class="hint">Tip: replace photo + text with your memories 💞</div>
+
+        <div class="tip">Tip: Replace the photo + add your memories below 💖</div>
       </div>
     </section>
 
+    <!-- CONTENT GRID -->
     <section class="grid">
-    
+
+      <!-- PHOTO CARD -->
       <section class="card">
-        <section class="card ny">
-  <div class="ny-badge">✨ 2026 ✨</div>
-  <h2>Midnight Countdown ⏳</h2>
-  <p class="muted">Counting down to the new year in your time.</p>
-  <div class="ny-count" id="nyCountdown">--</div>
+        <h2>Our little corner 📸</h2>
+        <p class="muted">Replace this with your photo (or a collage later).</p>
 
-  <div class="ny-wish">
-    <p class="big" id="nyWishLine">Tonight, I’m making one wish: <b>you and me</b> — always.</p>
-    <button class="btn" id="fireworksBtn">Celebrate 🎇</button>
-  </div>
+        <!-- Replace src with your own: assets/vaishu.jpg -->
+        <div class="photo">
+          <img id="mainPhoto"
+               src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=60"
+               alt="Us" />
+        </div>
 
-  <div class="ny-res">
-    <h3 class="small">My 2026 promises to you 💍</h3>
-    <ul class="promise">
-      <li>More time, more calls, more patience.</li>
-      <li>Better communication, even on hard days.</li>
-      <li>One big plan: meeting you soon.</li>
-    </ul>
-  </div>
-</section>
-
-        <h2>Random reason I love you 💖</h2>
-        <p id="reasonText" class="big">Click the button 👇</p>
-        <button class="btn" id="newReason">Give me one more 🥺</button>
-      </section>
-
-      <section class="card">
-        <h2>Our little timeline 🗓️</h2>
-        <ul class="timeline" id="timeline">
-          <li><span class="dot"></span><b>We met:</b> <span id="metDateText">DD MMM YYYY</span></li>
-          <li><span class="dot"></span><b>First call:</b> Add your memory</li>
-          <li><span class="dot"></span><b>Favourite moment:</b> Add your memory</li>
-          <li><span class="dot"></span><b>Next plan:</b> Paris / trip / date</li>
-        </ul>
-      </section>
-
-      <section class="card">
-        <h2>Mini quiz 😄</h2>
-        <p class="muted">How well do you remember us?</p>
-        <div class="quiz">
-          <div class="q">
-            <div class="q-title">1) Our “thing” is:</div>
-            <button class="btn ghost opt">A song 🎶</button>
-            <button class="btn ghost opt" data-correct="1">A promise 💍</button>
-            <button class="btn ghost opt">A meme 😂</button>
-          </div>
-          <div class="q">
-            <div class="q-title">2) I miss you the most when:</div>
-            <button class="btn ghost opt" data-correct="1">The day ends 🌙</button>
-            <button class="btn ghost opt">I eat 😋</button>
-            <button class="btn ghost opt">I sleep 😴</button>
-          </div>
-          <div class="q">
-            <div class="q-title">3) Next date idea:</div>
-            <button class="btn ghost opt">Cafe + talk ☕</button>
-            <button class="btn ghost opt" data-correct="1">Walk + photos 📸</button>
-            <button class="btn ghost opt">Movie + snacks 🍿</button>
-          </div>
-          <div class="result" id="quizResult"></div>
+        <div class="row">
+          <button class="btn ghost smallbtn" id="swapPhoto">Change photo vibe ✨</button>
+          <button class="btn ghost smallbtn" id="sparkle">Sparkles ✨</button>
         </div>
       </section>
 
+      <!-- REASONS -->
       <section class="card">
-        <h2>Playlist for you 🎧</h2>
-        <p class="muted">Add your songs or embed Spotify/YouTube.</p>
-        <div class="songs" id="songs">
-          <div class="song"><span>❤️ Our song</span><span class="tag">Add link</span></div>
-          <div class="song"><span>🌙 Night vibe</span><span class="tag">Add link</span></div>
-          <div class="song"><span>✨ When I miss you</span><span class="tag">Add link</span></div>
+        <h2>One reason I love you 💖</h2>
+        <p class="big" id="reasonText">Tap the button, Vaishu 😊</p>
+        <div class="row">
+          <button class="btn" id="newReason">One more 🥺</button>
+          <button class="btn ghost" id="copyReason">Copy</button>
         </div>
-        <div class="embed">
-          <!-- Optional: paste a Spotify/YouTube embed iframe here -->
-          <!-- Example:
-          <iframe style="border-radius:12px" src="..." width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-          -->
+        <p class="muted tinyline">You can keep clicking. I added many reasons 😄</p>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="card">
+        <h2>Our story (mini timeline) 🗓️</h2>
+        <div class="timeline">
+          <div class="tl">
+            <div class="dot"></div>
+            <div class="tlc">
+              <div class="tlt">We started</div>
+              <div class="tld" id="startPretty">1 Jan 2024</div>
+            </div>
+          </div>
+
+          <div class="tl">
+            <div class="dot"></div>
+            <div class="tlc">
+              <div class="tlt">Favourite thing about you</div>
+              <div class="tld">Your heart, your care, your presence 💗</div>
+            </div>
+          </div>
+
+          <div class="tl">
+            <div class="dot"></div>
+            <div class="tlc">
+              <div class="tlt">2026 plan</div>
+              <div class="tld">Meet in <b>May/June</b> + make real memories ✨</div>
+            </div>
+          </div>
+
+          <div class="tl">
+            <div class="dot"></div>
+            <div class="tlc">
+              <div class="tlt">Forever</div>
+              <div class="tld">You & me — always.</div>
+            </div>
+          </div>
         </div>
       </section>
 
+      <!-- OPEN WHEN -->
       <section class="card">
         <h2>Open when… 📩</h2>
-        <div class="open-when">
-          <button class="btn ghost msg" data-msg="When you miss me: Close your eyes… I’m holding you there.">When you miss me</button>
-          <button class="btn ghost msg" data-msg="When you’re stressed: Breathe. You’re stronger than the day. I’m proud of you.">When you’re stressed</button>
-          <button class="btn ghost msg" data-msg="When you feel alone: Look at the sky—same moon, same us.">When you feel alone</button>
+        <p class="muted">Tap a button. It’ll show a message.</p>
+        <div class="openwhen">
+          <button class="chipbtn" data-msg="When you miss me: Close your eyes… I’m holding you there. ❤️">When you miss me</button>
+          <button class="chipbtn" data-msg="When you’re stressed: Breathe… I’m proud of you, Vaishu. 🌙">When you’re stressed</button>
+          <button class="chipbtn" data-msg="When you feel alone: Same moon, same sky… same us. ✨">When you feel alone</button>
+          <button class="chipbtn" data-msg="When it’s New Year: I’m cheering for you from here — always. 🎆">When it’s New Year</button>
         </div>
         <div class="note" id="openWhenNote"></div>
       </section>
+
+      <!-- QUIZ -->
+      <section class="card">
+        <h2>Vaishu Quiz 😄</h2>
+        <p class="muted">Just for fun. No pressure 😅</p>
+
+        <div class="quiz">
+          <div class="q">
+            <div class="qt">1) Our 2026 goal is:</div>
+            <div class="opts">
+              <button class="opt" data-correct="1">Meet (May/June) ✈️</button>
+              <button class="opt">Sleep more 😴</button>
+              <button class="opt">Ignore each other 🙃</button>
+            </div>
+          </div>
+
+          <div class="q">
+            <div class="qt">2) My favourite person is:</div>
+            <div class="opts">
+              <button class="opt">Me 😎</button>
+              <button class="opt" data-correct="1">Vaishu 💖</button>
+              <button class="opt">Coffee ☕</button>
+            </div>
+          </div>
+
+          <div class="q">
+            <div class="qt">3) The way I love you means:</div>
+            <div class="opts">
+              <button class="opt">It changes daily</button>
+              <button class="opt" data-correct="1">I can’t love anyone else ❤️</button>
+              <button class="opt">It’s a joke 😭</button>
+            </div>
+          </div>
+
+          <div class="quizResult" id="quizResult"></div>
+        </div>
+      </section>
+
     </section>
 
     <footer class="footer">
-      <div>Made by <span class="accent" id="yourName">YourName</span> with love ❤️</div>
-      <div class="muted">P.S. refresh the page for new sparkles ✨</div>
+      <div class="footerline">Made by <span class="accent">Rohit</span> for <span class="accent">Vaishu</span> 💖</div>
+      <div class="muted">If you’re reading this… I’m smiling right now 😄</div>
     </footer>
   </main>
 
-  <!-- Letter Modal -->
+  <!-- LETTER MODAL -->
   <div class="modal" id="letterModal" aria-hidden="true">
-    <div class="modal-card">
-      <div class="modal-head">
-        <div class="modal-title">My Letter 💌</div>
-        <button class="btn ghost" id="closeLetter">✖</button>
+    <div class="modalCard">
+      <div class="modalHead">
+        <div class="modalTitle">New Year Letter 💌</div>
+        <button class="iconbtn" id="closeLetter" aria-label="Close">✖</button>
       </div>
-      <div class="modal-body" id="letterBody">
-        <p>My love,</p>
+
+      <div class="modalBody" id="letterBody">
+        <p><b>My Vaishu,</b></p>
+
         <p>
-          Replace this with your real message. Write 8–12 lines.
-          Mention one memory, one promise, and one future plan.
+          Happy New Year, my love 🎆
+          Even from far away, you’re the closest thing to my heart.
         </p>
+
         <p>
-          No matter the distance, I’m always on your side.
+          This year I want one thing: <b>us</b> — stronger, calmer, and forever.
+          Because the way I love you… <b>I can’t love anyone else.</b>
         </p>
-        <p>Forever yours,<br><b id="yourName2">YourName</b></p>
+
+        <p>
+          I’m planning our meeting in <b>May or June</b>.
+          Until then, I’m here — every day, every night, every mood.
+        </p>
+
+        <p>
+          I love you, Vaishu. Always. ❤️
+        </p>
+
+        <p class="sign">Forever yours,<br><b>Rohit</b></p>
+      </div>
+
+      <div class="modalFoot">
+        <button class="btn" id="copyLetter">Copy letter</button>
+        <button class="btn ghost" id="moreMagic">More magic ✨</button>
       </div>
     </div>
   </div>
